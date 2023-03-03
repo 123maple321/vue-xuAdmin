@@ -1,4 +1,8 @@
 /**
+ * 英文语言
+ * 
+ * 先en再cn
+ * 
  * Created by WebStorm.
  * User: nirongxu
  * Date: 2018/12/8
@@ -9,6 +13,14 @@ import enLocale from "element-ui/lib/locale/lang/en"
 const en = {
   routeName: {
     home: "home",
+    projectManagement: "projectManagement",
+    defectPredictionManagement: "defectPredictionManagement",
+    resultManagement: "resultManagement",
+    sourceProject: "sourceProject",
+    targetProject: "targetProject",
+    superParameter: "superParameter",
+    defectPrediction: "defectPrediction",
+
     article: "article",
     publishArticle: "publishArticle",
     publishArticleEditor: "publishArticleEditor",

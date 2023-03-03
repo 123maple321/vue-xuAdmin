@@ -1,3 +1,5 @@
+<!-- 左栏的元素 -->
+
 <template>
     <div>
       <template v-for="(child) in menuData">
@@ -11,7 +13,7 @@
 
         <el-menu-item v-else-if="!child.hidden" :index="child.path" :key="child.path">
           <i :class="child.iconCls?child.iconCls:[fa,fa-file]"/>
-          <span slot="title">{{ $t(`routeName.${child.name}`) }}</span>
+          <span slot="title">{{ $t(`routeName.${child.name}`) }}</span>  <!-- 改这里有用 -->
         </el-menu-item>
       </template>
     </div>

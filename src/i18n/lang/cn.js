@@ -1,4 +1,6 @@
 /**
+ * 中文语言
+ * 
  * Created by WebStorm.
  * User: nirongxu
  * Date: 2018/12/8
@@ -8,8 +10,16 @@ import zhLocale from "element-ui/lib/locale/lang/zh-CN"
 const cn = {
   routeName: {
     home: "主页",
+    projectManagement: "项目管理",
+    defectPredictionManagement: "缺陷预测管理",
+    resultManagement: "结果管理",
+    sourceProject: "源项目",
+    targetProject: "目标项目",
+    superParameter: "超参数设置",
+    defectPrediction: "缺陷预测",
+
     article: "文章管理",
-    publishArticle: "发表文章",
+    publishArticle: "aaaaaa",
     publishArticleEditor: "发表文章-富文本",
     icon: "图标",
     builtInIcon: "内置图标",

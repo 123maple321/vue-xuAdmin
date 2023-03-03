@@ -3,7 +3,7 @@
 import Vue from "vue"
 import ElementUI from "element-ui"
 import App from "./App.vue"
-import router from "./router"
+import router from "./router" //挂载路由
 import store from "./vuex"
 import i18n from "./i18n/i18n"
 import globalPlugin from "./utils/global"
@@ -26,7 +26,7 @@ NProgress.configure({ easing: "ease", speed: 500, showSpinner: false })
 
 /* eslint-disable no-new */
 new Vue({
-  el: "#app",
+  el: "#app", //挂载到index.html
   router,
   store,
   i18n,
