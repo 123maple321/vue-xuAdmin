@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <p>Copyright © 2018 xuAdmin.</p>
+    <p>Copyright © 2024 chenhui.</p>
   </div>
 </template>
 

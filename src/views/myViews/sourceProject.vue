@@ -1,10 +1,10 @@
 <template>
     <div>
-      <h3>多选</h3>
-      <p>选择多行数据时使用 Checkbox。</p>
+      <h3>请选择源项目</h3>
+      <!-- <p>选择多行数据时使用 Checkbox。</p> -->
       <template>
 
-        <!--表格-->
+        <!--表格1-->
         <el-table
           ref="multipleTable"
           :data="tableData4" 
@@ -18,28 +18,64 @@
           </el-table-column>
 
           <el-table-column
-            label="日期"
+            prop="name"
+            label="项目名"
+            width="120">
+          </el-table-column>
+
+          <el-table-column
+            prop="version"
+            label="版本号"
+            width="120">
+          </el-table-column>
+
+          <el-table-column
+            prop="fileNum"
+            label="文件数"
+            width="120">
+          </el-table-column>
+
+          <el-table-column
+            label="上传日期"
             width="120">
             <template slot-scope="scope">{{ scope.row.date }}</template>
           </el-table-column>
 
           <el-table-column
-            prop="name"
-            label="姓名"
+            prop="unbalanceRate"
+            label="不平衡率"
             width="120">
           </el-table-column>
 
           <el-table-column
-            prop="address"
-            label="地址"
+            prop="public"
+            label="是否属于公共项目"
+            width="150">
+          </el-table-column>
+
+          <el-table-column
+            prop="label"
+            label="是否带有训练标签"
+            width="150">
+          </el-table-column>
+
+          <el-table-column
+            prop="manu"
+            label="是否带有手工特征"
+            width="150">
+          </el-table-column>
+
+          <el-table-column
+            prop="description"
+            label="项目描述"
             show-overflow-tooltip>
           </el-table-column>
 
         </el-table>
 
         <div style="margin-top: 20px">
-          <el-button @click="toggleSelection([tableData4[1], tableData4[2]])">切换第二、第三行的选中状态</el-button>
           <el-button @click="toggleSelection()">取消选择</el-button>
+          <el-button type="primary" @click="select()">确定</el-button>
         </div>
 
       </template>
@@ -53,33 +89,202 @@ export default {
     return {
       tableData4: [
         {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }, {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }, {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }, {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }, {
-          date: "2016-05-08",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }, {
-          date: "2016-05-06",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        }, {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        },
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        },
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
+        }, 
+        {
+          name: "camel",
+          version: "1.4",
+          fileNum: "67",
+          unbalanceRate: "78",
+          date: "2023-03-14",
+          public: "是",
+          label: "是",
+          manu: "否",
+          description: "属于PROMISE"
         }
       ],
       multipleSelection: []
@@ -87,13 +292,12 @@ export default {
   },
   methods: {
     toggleSelection (rows) { //自动勾选或取消勾选
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row) // el-table自带函数
-        })
-      } else {
-        this.$refs.multipleTable.clearSelection() // el-table自带函数 清楚所有勾选
-      }
+      this.$refs.multipleTable.clearSelection()
+    },
+    select (rows) {
+      //TODO
+
+      alert("确定")
     },
     handleSelectionChange (val) { //处理改变
       this.multipleSelection = val

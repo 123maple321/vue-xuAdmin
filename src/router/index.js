@@ -5,7 +5,7 @@ import Router from "vue-router"
 import CommerViews from "@/views/commerViews"
 import Login from "@/views/login/index"
 import Layout from "@/views/layout/layout" // 顶栏、左侧bar
-import HomeMain from "@/views/index/mainIndex" // 主页
+import HomeMain from "@/views/myViews/mainIndex" // 主页
 
 // 对应views文件夹
 // 不是必须加载的组件使用懒加载
@@ -37,6 +37,7 @@ const TargetProject = () => import("@/views/myViews/targetProject")
 const SuperParameter = () => import("@/views/myViews/superParameter")
 const DefectPrediction = () => import("@/views/myViews/defectPrediction")
 const ResultManagement = () => import("@/views/myViews/resultManagement")
+const ResultDetail = () => import("@/views/myViews/resultDetail")
 
 /**
  * 重写路由的push方法
@@ -125,7 +126,7 @@ let addRouter = [
       {
         path: "/targetProject",
         iconCls: "fa fa-hand-stop-o",
-        name: routeName.sourceProject,
+        name: routeName.targetProject,
         component: TargetProject,
         children: []
       },
@@ -158,6 +159,13 @@ let addRouter = [
         iconCls: "fa fa-hand-stop-o",
         name: routeName.resultManagement,
         component: ResultManagement,
+        children: []
+      },
+      {
+        path: "/resultDetail",
+        iconCls: "fa fa-hand-stop-o",
+        name: routeName.resultDetail,
+        component: ResultDetail,
         children: []
       }
     ]

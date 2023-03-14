@@ -1,30 +1,34 @@
 <template>
   <div class="wrap">
     <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
+      
       <el-form-item
         prop="indexName"
         label="首页"
-        :rules="{
-      required: true, message: '分类不能为空', trigger: 'blur'
-    }"
-      >
+        :rules="{required: true, message: '分类不能为空', trigger: 'blur'}">
+
         <el-input placeholder="导航名称" v-model="dynamicValidateForm.indexName"></el-input>
         <el-input placeholder="path路径" disabled v-model="dynamicValidateForm.indexHref"></el-input>
+
       </el-form-item>
+
       <el-form-item
         v-for="(domain, index) in dynamicValidateForm.domains"
         :label="'导航' + (index+1)"
         :key="domain.key"
-        :prop="'domains.' + index + '.value'"
-      >
+        :prop="'domains.' + index + '.value'">
+
         <el-input placeholder="导航名称" v-model="domain.name"></el-input>
         <el-input placeholder="path路径" v-model="domain.href"></el-input>
         <el-button @click.prevent="removeDomain(domain)">删除</el-button>
+
       </el-form-item>
+
       <el-form-item>
-        <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
-        <el-button @click="addDomain">新增分类</el-button>
+        <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button> <!--按钮-->
+        <el-button @click="addDomain">新增分类</el-button>                                              <!--按钮-->
       </el-form-item>
+
     </el-form>
   </div>
 </template>

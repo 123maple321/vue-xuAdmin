@@ -1,106 +1,194 @@
 <template>
-    <div>
-      <h3>多选</h3>
-      <p>选择多行数据时使用 Checkbox。</p>
-      <template>
-        <el-table
-          ref="multipleTable"
-          :data="tableData4"
-          tooltip-effect="dark"
-          style="width: 100%"
-          @selection-change="handleSelectionChange">
-          <el-table-column
-            type="selection"
-            width="55">
-          </el-table-column>
-          <el-table-column
-            label="日期"
-            width="120">
-            <template slot-scope="scope">{{ scope.row.date }}</template>
-          </el-table-column>
-          <el-table-column
-            prop="name"
-            label="姓名"
-            width="120">
-          </el-table-column>
-          <el-table-column
-            prop="address"
-            label="地址"
-            show-overflow-tooltip>
-          </el-table-column>
-        </el-table>
-        <div style="margin-top: 20px">
-          <el-button @click="toggleSelection([tableData4[1], tableData4[2]])">切换第二、第三行的选中状态</el-button>
-          <el-button @click="toggleSelection()">取消选择</el-button>
-        </div>
-      </template>
-    </div>
+  <div class="wrap">
+    <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="200px" class="demo-dynamic">
+      
+      <el-form-item
+        prop="feasure"
+        label="人工/手工特征"
+        :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
+        <el-input placeholder="请输入数据" v-model="dynamicValidateForm.feasure"></el-input>
+      </el-form-item>
+      
+      <el-form-item
+        prop="hidden_layer"
+        label="BNN隐藏层神经元数"
+        :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
+        <el-input placeholder="请输入数据" v-model="dynamicValidateForm.hidden_layer"></el-input>
+      </el-form-item>
+      
+      <el-form-item
+        prop="learning_rate"
+        label="学习率"
+        :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
+        <el-input placeholder="请输入数据" v-model="dynamicValidateForm.learning_rate"></el-input>
+      </el-form-item>
+      
+      <el-form-item
+        prop="batch_size"
+        label="batch_size"
+        :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
+        <el-input placeholder="请输入数据" v-model="dynamicValidateForm.batch_size"></el-input>
+      </el-form-item>
+      
+      <el-form-item
+        prop="epoch"
+        label="epoch"
+        :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
+        <el-input placeholder="请输入数据" v-model="dynamicValidateForm.epoch"></el-input>
+      </el-form-item>
+      
+      <el-form-item
+        prop="sigma_1"
+        label="sigma_1"
+        :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
+        <el-input placeholder="请输入数据" v-model="dynamicValidateForm.sigma_1"></el-input>
+      </el-form-item>
+      
+      <el-form-item
+        prop="sigma_2"
+        label="sigma_2"
+        :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
+        <el-input placeholder="请输入数据" v-model="dynamicValidateForm.sigma_2"></el-input>
+      </el-form-item>
+      
+      <el-form-item
+        prop="dropout"
+        label="是否使用dropout"
+        :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
+        <el-input placeholder="请输入数据" v-model="dynamicValidateForm.dropout"></el-input>
+      </el-form-item>
+      
+      <el-form-item
+        prop="nnfilter"
+        label="是否使用nnfilter"
+        :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
+        <el-input placeholder="请输入数据" v-model="dynamicValidateForm.nnfilter"></el-input>
+      </el-form-item>
+      
+      <el-form-item
+        prop="tca"
+        label="是否使用tca"
+        :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
+        <el-input placeholder="请输入数据" v-model="dynamicValidateForm.tca"></el-input>
+      </el-form-item>
+
+      <!--按钮-->
+      <el-form-item>
+        <el-button @click="resetForm()">恢复默认</el-button>
+        <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
+      </el-form-item>
+
+    </el-form>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "dataTables",
+  name: "navClassify",
   data () {
     return {
-      tableData4: [{
-        date: "2016-05-03",
-        name: "王小虎",
-        address: "上海市普陀区金沙江路 1518 弄"
-      }, {
-        date: "2016-05-02",
-        name: "王小虎",
-        address: "上海市普陀区金沙江路 1518 弄"
-      }, {
-        date: "2016-05-04",
-        name: "王小虎",
-        address: "上海市普陀区金沙江路 1518 弄"
-      }, {
-        date: "2016-05-01",
-        name: "王小虎",
-        address: "上海市普陀区金沙江路 1518 弄"
-      }, {
-        date: "2016-05-08",
-        name: "王小虎",
-        address: "上海市普陀区金沙江路 1518 弄"
-      }, {
-        date: "2016-05-06",
-        name: "王小虎",
-        address: "上海市普陀区金沙江路 1518 弄"
-      }, {
-        date: "2016-05-07",
-        name: "王小虎",
-        address: "上海市普陀区金沙江路 1518 弄"
-      }],
-      multipleSelection: []
+      dynamicValidateForm: {
+        domains: [],
+        feasure: "人工+手工",
+        hidden_layer:"400",
+        learning_rate:"0.005",
+        batch_size:"5",
+        epoch:"20",
+        sigma_1:"0",
+        sigma_2:"0",
+        dropout:"是",
+        nnfilter:"是",
+        tca:"是",
+      }
     }
   },
   methods: {
-    toggleSelection (rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row)
-        })
-      } else {
-        this.$refs.multipleTable.clearSelection()
+    submitForm (formName) {
+      alert("点击了提交，开始训练并预测")
+
+      let oneData = {
+        name: this.dynamicValidateForm.indexName,
+        href: this.dynamicValidateForm.indexHref
       }
+      function coppyArray (arr) {
+        return arr.map((e) => {
+          if (typeof e === "object") {
+            return Object.assign({}, e)
+          } else {
+            return e
+          }
+        })
+      }
+      let arrdata = coppyArray(this.dynamicValidateForm.domains)
+      arrdata.unshift(oneData)
+      let formData = arrdata
+      let that = this
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$axios.post("/api/setting/setNavClassify", {
+            navClassifyData: formData
+          })
+            .then(response => {
+              console.log(response)
+              that.$message({
+                showClose: true,
+                message: response.data.msg,
+                type: "success"
+              })
+            })
+            .catch(err => {
+              console.log(err)
+              that.$message({
+                showClose: true,
+                message: err,
+                type: "error"
+              })
+            })
+        } else {
+          console.log("error submit!!")
+          return false
+        }
+      })
     },
-    handleSelectionChange (val) {
-      this.multipleSelection = val
-    }
+    resetForm (formName) {
+      alert("点击了恢复默认")
+
+      this.$refs[formName].resetFields()
+    },
+    // removeDomain (item) {
+    //   var index = this.dynamicValidateForm.domains.indexOf(item)
+    //   if (index !== -1) {
+    //     this.dynamicValidateForm.domains.splice(index, 1)
+    //   }
+    // }
+  },
+  mounted () {
+    //  页面加载完之后从后台获取导航列表
+    let that = this
+    // this.$axios.get('/api/setting/getNavClassify')
+    //   .then(function (response) {
+    //     if (response.status === 200) {
+    //       console.log(response)
+    //       that.dynamicValidateForm.indexName = response.data.navList[0].name
+    //       that.dynamicValidateForm.indexHref = response.data.navList[0].href
+    //       response.data.navList.splice(0, 1)
+    //       that.dynamicValidateForm.domains = that.dynamicValidateForm.domains.concat(response.data.navList)
+    //       console.log(that.dynamicValidateForm)
+    //       return false
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error)
+    //   })
   }
 }
 </script>
 
 <style scoped>
-  h3{
-    margin: 25px 0 20px;
-    font-weight: 400;
-    color: #1f2f3d;
-    font-size: 22px;
-  }
-  p{
-    font-size: 14px;
-    color: #5e6d82;
-    line-height: 1.5em;
-  }
+
+.el-input {
+  margin-right: 10px;
+  width: 270px;
+  vertical-align: top;
+}
 </style>

@@ -3,30 +3,49 @@
 <template>
   <div>
     <el-header id="header">
+
+      <!-- 收起/展开 左栏 -->
       <span class="hideAside" @click="collapse"><i class="fa fa-indent fa-lg"></i></span>
+
       <ul class="personal">
+
+        <!-- 全屏 -->
         <li class="fullScreen" @click="fullScreen">
           <el-tooltip class="item" effect="dark" content="全屏" placement="bottom"><i
             class="fa fa-arrows-alt fa-lg"></i></el-tooltip>
         </li>
+
+        <!-- 语言选择 -->
         <li>
           <langSelect></langSelect>
         </li>
+
+        <!-- 显示角色 -->
         <li>{{ $t(`role.${this.$store.getters.info.role}`) }}</li>
+
         <li>
           <el-dropdown @command="handleCommand">
-                  <span class="el-dropdown-link">
-                    夏洛克丶旭<i class="el-icon-arrow-down el-icon--right"></i>
-                  </span>
+
+            <!-- 用户名 -->
+            <span class="el-dropdown-link">
+              用户名<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+
+            <!-- 3个选项 -->
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="info">{{ $t('userDropdownMenu.basicInfor') }}</el-dropdown-item>
               <el-dropdown-item command="editPassword">{{ $t('userDropdownMenu.changePassword') }}</el-dropdown-item>
               <el-dropdown-item command="logout" divided>{{ $t('userDropdownMenu.logout') }}</el-dropdown-item>
             </el-dropdown-menu>
+
           </el-dropdown>
         </li>
+
+        <!-- 头像 -->
         <li class="icon"><img :src="avatar"/></li>
+
       </ul>
+
     </el-header>
     <tabNav></tabNav>
     <user-info v-if="dialogInfoVisible" :title="title" :dialogVisible="dialogInfoVisible" :userId="userId" @successCallback="successCallback"/>

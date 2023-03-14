@@ -4,8 +4,8 @@
   <div>
     <el-aside id="asideNav">
       <div class="logo-name">
-        <p v-if="$store.getters.logoShow">XU</p>
-        <p v-else>vue-xuAdmin后台模板</p>
+        <p v-if="$store.getters.logoShow">DP</p>
+        <p v-else>软件缺陷预测系统</p>
       </div>
       <el-menu :default-active="$route.path" class="el-menu-vertical"
                @select="selectmenu"
@@ -53,7 +53,7 @@ export default {
     }
   },
   methods: {
-    selectmenu (key, indexpath) {
+    selectmenu (key, indexpath) {//key: /resultManagement
       // 如果不使用 elemenUI 菜单的 vue-router 的模式将用以下方式进行页面跳转 el-menu的router设置为false
       // this.$router.push(indexpath.join("/"))
       let router = this.$store.getters.routers

@@ -17,6 +17,7 @@ const cn = {
     targetProject: "目标项目",
     superParameter: "超参数设置",
     defectPrediction: "缺陷预测",
+    resultDetail: "结果详情",
 
     article: "文章管理",
     publishArticle: "aaaaaa",

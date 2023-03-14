@@ -20,6 +20,7 @@ const en = {
     targetProject: "targetProject",
     superParameter: "superParameter",
     defectPrediction: "defectPrediction",
+    resultDetail: "resultDetail",
 
     article: "article",
     publishArticle: "publishArticle",
