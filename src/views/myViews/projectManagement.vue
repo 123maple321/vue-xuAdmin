@@ -75,7 +75,7 @@
 
       <div style="margin-top: 20px">
         <el-button @click="toggleSelection()">取消选择</el-button>
-        <el-button type="primary" @click="select()">确定</el-button>
+        <el-button type="primary" @click="select()">申请公共项目</el-button>
       </div>
 
     </template>

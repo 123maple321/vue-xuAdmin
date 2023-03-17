@@ -3,7 +3,7 @@ import en from "../i18n/lang/en"
 import Vue from "vue"
 import Router from "vue-router"
 import CommerViews from "@/views/commerViews"
-import Login from "@/views/login/index"
+import Login from "@/views/myViews/login" // 登录页
 import Layout from "@/views/layout/layout" // 顶栏、左侧bar
 import HomeMain from "@/views/myViews/mainIndex" // 主页
 
@@ -32,6 +32,7 @@ const btnPermissions = () => import("@/views/permissions/btnPermissions")
 
 //我的
 const ProjectManagement = () => import("@/views/myViews/projectManagement")
+const UploadProject = () => import("@/views/myViews/uploadProject")
 const SourceProject = () => import("@/views/myViews/sourceProject")
 const TargetProject = () => import("@/views/myViews/targetProject")
 const SuperParameter = () => import("@/views/myViews/superParameter")
@@ -104,6 +105,13 @@ let addRouter = [
         iconCls: "fa fa-hand-stop-o",
         name: routeName.projectManagement,
         component: ProjectManagement,
+        children: []
+      },
+      {
+        path: "/uploadProject",
+        iconCls: "fa fa-hand-stop-o",
+        name: routeName.uploadProject,
+        component: UploadProject,
         children: []
       }
     ]

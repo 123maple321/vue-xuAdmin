@@ -3,6 +3,7 @@
 <template>
     <div>
       <template v-for="(child) in menuData">
+
         <el-submenu v-if="child.children.length > 0" :index="child.path" :key="child.path">
           <template slot="title">
             <i :class="child.iconCls?child.iconCls:[fa,fa-file]"/>
@@ -15,6 +16,7 @@
           <i :class="child.iconCls?child.iconCls:[fa,fa-file]"/>
           <span slot="title">{{ $t(`routeName.${child.name}`) }}</span>  <!-- 改这里有用 -->
         </el-menu-item>
+        
       </template>
     </div>
 </template>

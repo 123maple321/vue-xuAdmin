@@ -11,6 +11,7 @@ const cn = {
   routeName: {
     home: "主页",
     projectManagement: "项目管理",
+    uploadProject: "上传项目",
     defectPredictionManagement: "缺陷预测管理",
     resultManagement: "结果管理",
     sourceProject: "源项目",

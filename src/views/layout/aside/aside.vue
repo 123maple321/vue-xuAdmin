@@ -3,10 +3,14 @@
 <template>
   <div>
     <el-aside id="asideNav">
+
+      <!-- 顶层 -->
       <div class="logo-name">
         <p v-if="$store.getters.logoShow">DP</p>
         <p v-else>软件缺陷预测系统</p>
       </div>
+
+      <!-- 元素 -->
       <el-menu :default-active="$route.path" class="el-menu-vertical"
                @select="selectmenu"
                :collapse="$store.getters.isCollapse"
@@ -15,10 +19,12 @@
                active-text-color="#ffffff"
                :router="$store.getters.uniquerouter"
                :unique-opened="$store.getters.uniquerouter"
-               :collapse-transition="true"
-      >
+               :collapse-transition="true">
+
         <template v-for="(item,index) in $store.getters.routers" v-if="!item.hidden">
+
           <el-submenu v-if="!item.alone && item.children.length>0" :index="index+''" :key="index">
+
             <template slot="title">
               <i :class="item.iconCls?item.iconCls:[fa,fa-server]"></i>
               <span slot="title">{{ $t(`routeName.${item.name}`) }}</span>
@@ -27,19 +33,22 @@
             <menu-tree :menuData="item.children"></menu-tree>
 
           </el-submenu>
+
           <el-menu-item :index="item.path" v-else :key="item.path">
             <i :class="item.iconCls?item.iconCls:[fa,fa-file]"/>
             <span slot="title">{{ $t(`routeName.${item.name}`) }}</span>
           </el-menu-item>
+
         </template>
 
       </el-menu>
+
     </el-aside>
   </div>
 </template>
 
 <script>
-import menuTree from "./menuTree"
+import menuTree from "./menuTree" //引入menuTree
 
 export default {
   name: "asideNav",

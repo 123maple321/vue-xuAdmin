@@ -11,8 +11,8 @@
           <div class="table">
             <p><span class="tit">当前版本</span>v1.0.0</p>
             <p><span class="tit">基于框架</span>vue2.0 element-ui SpringBoot pytorch</p>
-            <p><span class="tit">主要特色</span>缺陷预测 不确定性量化</p>
-            <p><span class="tit">获取渠道</span>
+            <p><span class="tit">主要特色</span>缺陷预测 不确定性量化 神经网路 语义特征</p>
+            <p><span class="tit">源码链接</span>
                 <span class="gitbox">
                   <a target="_blank" href="https://github.com/123maple321/TCNN_BBB"><el-button type="primary" icon="el-icon-download" size="small">github</el-button></a>
                   <!-- <a target="_blank" href="https://gitee.com/nirongxu/vue-xuAdmin.git"><el-button type="primary" icon="el-icon-download" size="small">码云</el-button></a> -->
@@ -25,7 +25,7 @@
       <!-- 第二列 -->
       <el-col :span="8">
         <div class="card dbsx">
-          <p class="title"><i class="fa fa-file-text-o"></i>状态</p>
+          <p class="title"><i class="fa fa-file-text-o"></i>用户状态</p>
           <ul>
             <li><router-link to="#"><span>项目组总数</span><span class="num">6</span></router-link></li>
             <li><router-link to="#"><span>项目总数</span><span class="num">87</span></router-link></li>

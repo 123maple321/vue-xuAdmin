@@ -14,6 +14,7 @@ const en = {
   routeName: {
     home: "home",
     projectManagement: "projectManagement",
+    uploadProject: "uploadProject",
     defectPredictionManagement: "defectPredictionManagement",
     resultManagement: "resultManagement",
     sourceProject: "sourceProject",

@@ -9,6 +9,7 @@ import i18n from "./i18n/i18n"
 import globalPlugin from "./utils/global"
 import permission from "./directive/permission/button"
 import NProgress from "nprogress"
+import axios from 'axios' //引入axios
 
 import "nprogress/nprogress.css"
 import "element-ui/lib/theme-chalk/index.css"
@@ -24,7 +25,7 @@ Vue.use(permission)
 NProgress.inc(0.2)
 NProgress.configure({ easing: "ease", speed: 500, showSpinner: false })
 
-/* eslint-disable no-new */
+/* 想让Vue工作，就必须创建一个Vue实例，且要传入一个配置对象 */
 new Vue({
   el: "#app", //挂载到index.html
   router,
@@ -33,4 +34,16 @@ new Vue({
   render: h => h(App),
   components: {App},
   template: "<App/>"
+})
+
+
+
+
+//尝试axios
+console.log("请求回调中...");
+axios.get("http://localhost:8082/admin/listProject").then(function(response){
+    console.log("请求回调成功");
+    console.log(response);
+}).catch(function(error){
+    console.log("请求回调失败");
 })
