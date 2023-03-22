@@ -31,41 +31,41 @@
             prop="name"
             label="项目名"
             :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
-            <el-input placeholder="请输入数据" v-model="dynamicValidateForm.feasure"></el-input>
+            <el-input placeholder="请输入数据" v-model="dynamicValidateForm.a"></el-input>
             </el-form-item>
             
             <el-form-item
             prop="version"
             label="版本号"
             :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
-            <el-input placeholder="请输入数据" v-model="dynamicValidateForm.hidden_layer"></el-input>
+            <el-input placeholder="请输入数据" v-model="dynamicValidateForm.b"></el-input>
             </el-form-item>
             
             <el-form-item
             prop="description"
             label="项目描述"
             :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
-            <el-input placeholder="请输入数据" v-model="dynamicValidateForm.learning_rate"></el-input>
+            <el-input placeholder="请输入数据" v-model="dynamicValidateForm.c"></el-input>
             </el-form-item>
             
             <el-form-item
             prop="numFiles"
             label="文件数"
             :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
-            <el-input placeholder="等待解析" v-model="dynamicValidateForm.learning_rate"></el-input>
+            <el-input placeholder="等待解析" v-model="dynamicValidateForm.d"></el-input>
             </el-form-item>
             
             <el-form-item
             prop="unbalanceRate"
             label="不平衡率"
             :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
-            <el-input placeholder="等待解析" v-model="dynamicValidateForm.learning_rate"></el-input>
+            <el-input placeholder="等待解析" v-model="dynamicValidateForm.e"></el-input>
             </el-form-item>
     
             <!--按钮-->
             <el-form-item>
             <el-button @click="resetForm()">清空数据</el-button>
-            <el-button @click="submitForm()">解析项目</el-button>
+            <el-button @click="analysis()">解析项目</el-button>
             <el-button type="primary" @click="submitForm()">确认上传</el-button>
             </el-form-item>
   
@@ -74,6 +74,8 @@
   </template>
   
 <script>
+  import axios from 'axios' //引入axios
+
   export default {
     name: "navClassify",
     data () {
@@ -88,70 +90,16 @@
     },
     methods: {
       submitForm (formName) {
-
-        console.log("请求回调中...");
-        this.$axios.get("http://localhost:8081/admin/listProject").then(function(response){
-            console.log("请求回调成功");
-            console.log(response);
-        }).catch(function(error){
-            console.log("请求回调失败");
-        })
-  
-        let oneData = {
-          name: this.dynamicValidateForm.indexName,
-          href: this.dynamicValidateForm.indexHref
-        }
-        function coppyArray (arr) {
-          return arr.map((e) => {
-            if (typeof e === "object") {
-              return Object.assign({}, e)
-            } else {
-              return e
-            }
-          })
-        }
-        let arrdata = coppyArray(this.dynamicValidateForm.domains)
-        arrdata.unshift(oneData)
-        let formData = arrdata
-        let that = this
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$axios.post("/api/setting/setNavClassify", {
-              navClassifyData: formData
-            })
-              .then(response => {
-                console.log(response)
-                that.$message({
-                  showClose: true,
-                  message: response.data.msg,
-                  type: "success"
-                })
-              })
-              .catch(err => {
-                console.log(err)
-                that.$message({
-                  showClose: true,
-                  message: err,
-                  type: "error"
-                })
-              })
-          } else {
-            console.log("error submit!!")
-            return false
-          }
-        })
+        alert("上传成功")
+      },
+      analysis (formName) {
+        alert("解析成功")
       },
       resetForm (formName) {
-        alert("点击了恢复默认")
+        alert("已清空数据")
   
         this.$refs[formName].resetFields()
       },
-      // removeDomain (item) {
-      //   var index = this.dynamicValidateForm.domains.indexOf(item)
-      //   if (index !== -1) {
-      //     this.dynamicValidateForm.domains.splice(index, 1)
-      //   }
-      // }
     },
     mounted () {
       //  页面加载完之后从后台获取导航列表

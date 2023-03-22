@@ -68,16 +68,14 @@ export default {
         if (valid) {
           this.$axios.post("/api/setting/setNavClassify", {
             navClassifyData: formData
-          })
-            .then(response => {
+          }).then(response => {
               console.log(response)
               that.$message({
                 showClose: true,
                 message: response.data.msg,
                 type: "success"
               })
-            })
-            .catch(err => {
+            }).catch(err => {
               console.log(err)
               that.$message({
                 showClose: true,

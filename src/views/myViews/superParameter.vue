@@ -75,7 +75,7 @@
       <!--按钮-->
       <el-form-item>
         <el-button @click="resetForm()">恢复默认</el-button>
-        <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
+        <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交数据</el-button>
       </el-form-item>
 
     </el-form>
@@ -83,12 +83,12 @@
 </template>
 
 <script>
+import axios from 'axios' //引入axios
 export default {
   name: "navClassify",
   data () {
     return {
       dynamicValidateForm: {
-        domains: [],
         feasure: "人工+手工",
         hidden_layer:"400",
         learning_rate:"0.005",
@@ -104,50 +104,16 @@ export default {
   },
   methods: {
     submitForm (formName) {
-      alert("点击了提交，开始训练并预测")
-
-      let oneData = {
-        name: this.dynamicValidateForm.indexName,
-        href: this.dynamicValidateForm.indexHref
-      }
-      function coppyArray (arr) {
-        return arr.map((e) => {
-          if (typeof e === "object") {
-            return Object.assign({}, e)
-          } else {
-            return e
-          }
-        })
-      }
-      let arrdata = coppyArray(this.dynamicValidateForm.domains)
-      arrdata.unshift(oneData)
-      let formData = arrdata
-      let that = this
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$axios.post("/api/setting/setNavClassify", {
-            navClassifyData: formData
-          })
-            .then(response => {
-              console.log(response)
-              that.$message({
-                showClose: true,
-                message: response.data.msg,
-                type: "success"
-              })
-            })
-            .catch(err => {
-              console.log(err)
-              that.$message({
-                showClose: true,
-                message: err,
-                type: "error"
-              })
-            })
-        } else {
-          console.log("error submit!!")
-          return false
-        }
+      console.log("请求回调中...");
+      axios.post(
+        "http://localhost:5000/superParameter",
+        this.dynamicValidateForm,
+      ).then(response => {
+        console.log("请求回调成功");
+        console.log(response)
+      }).catch(function(error){
+        console.log("请求回调失败!!!");
+        console.log(error);
       })
     },
     resetForm (formName) {

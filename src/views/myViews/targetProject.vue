@@ -83,209 +83,28 @@
 </template>
 
 <script>
+import axios from 'axios' //引入axios
 export default {
 name: "dataTables",
-data () { //返回表内数据
+data () { 
+  //加载
+  console.log("请求回调中...");
+  axios.get("http://localhost:5000/listProject").then(response => {
+    console.log("请求回调成功");
+    console.log(response.data)
+    
+    //深拷贝！！！！！
+    this.tableData4 = response.data
+  }).catch(function(error){
+    console.log("请求回调失败!!!");
+    console.log(error);
+  })
+
   return {
     tableData4: [
       {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
+        name:"..."
       }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      },
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      },
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }, 
-      {
-        name: "camel",
-        version: "1.4",
-        fileNum: "67",
-        unbalanceRate: "78",
-        date: "2023-03-14",
-        public: "是",
-        label: "是",
-        manu: "否",
-        description: "属于PROMISE"
-      }
     ],
     multipleSelection: []
   }
@@ -295,9 +114,17 @@ methods: {
     this.$refs.multipleTable.clearSelection()
   },
   select (rows) {
-    //TODO
-
-    alert("确定")
+    console.log("请求回调中...");
+    axios.post(
+      "http://localhost:5000/targetProject",
+      {"name":this.multipleSelection[0].name,"version":this.multipleSelection[0].version},
+    ).then(response => {
+      console.log("请求回调成功");
+      console.log(response)
+    }).catch(function(error){
+      console.log("请求回调失败!!!");
+      console.log(error);
+    })
   },
   handleSelectionChange (val) { //处理改变
     this.multipleSelection = val
