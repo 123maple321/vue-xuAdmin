@@ -36,6 +36,7 @@
         </el-table-column>
 
         <el-table-column
+          prop="date"
           label="上传日期"
           width="120">
           <template slot-scope="scope">{{ scope.row.date }}</template>

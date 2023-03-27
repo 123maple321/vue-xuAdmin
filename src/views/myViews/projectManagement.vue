@@ -7,7 +7,7 @@
       <!--表格1-->
       <el-table
         ref="multipleTable"
-        :data="tableData4" 
+        :data="tableData4"
         tooltip-effect="dark"
         style="width: 100%"
         @selection-change="handleSelectionChange">
@@ -20,7 +20,9 @@
         <el-table-column
           prop="name"
           label="项目名"
-          width="120">
+          width="120"
+          :sortable="true"
+          :sort-method="sortName">
         </el-table-column>
 
         <el-table-column
@@ -32,12 +34,17 @@
         <el-table-column
           prop="fileNum"
           label="文件数"
-          width="120">
+          width="120"
+          :sortable="true"
+          :sort-method="sortFileNum">
         </el-table-column>
 
         <el-table-column
+          prop="date"
           label="上传日期"
-          width="120">
+          width="120"
+          :sortable="true"
+          :sort-method="sortData">
           <template slot-scope="scope">{{ scope.row.date }}</template>
         </el-table-column>
 
@@ -87,13 +94,12 @@ import axios from 'axios' //引入axios
 export default {
   name: "dataTables",
   data () {
-      //加载
+      //加载表格
       console.log("请求回调中...");
       axios.get("http://localhost:5000/listProject").then(response => {
         console.log("请求回调成功");
         console.log(response.data)
         
-        //深拷贝！！！！！
         this.tableData4 = response.data
       }).catch(function(error){
         console.log("请求回调失败!!!");
@@ -118,7 +124,24 @@ export default {
     },
     handleSelectionChange (val) { //处理改变
       this.multipleSelection = val
-    }
+    },
+
+    //排序方法
+    sortName(a, b) {
+			let _a = a.name;
+			let _b = b.name;
+			return _a - _b;
+		},
+    sortFileNum(a, b) {
+			let _a = a.fileNum;
+			let _b = b.fileNum;
+			return _a - _b;
+		},
+    sortDate(a, b) {
+			let _a = a.date;
+			let _b = b.date;
+			return _a - _b;
+		},
   },
   mounted () {
     
