@@ -7,16 +7,22 @@
         class="upload-demo"
         drag
         action="https://jsonplaceholder.typicode.com/posts/"
+        :on-success="handleSuccess"
+        :on-error="handleError"
         multiple>
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
             <div class="el-upload__tip" slot="tip">只能上传压缩包文件，且不超过100Gb</div>
         </el-upload>
+        
+        <!-- 上传 -->
         <h3>上传项目标签及手工特征（可选）</h3>
         <el-upload
         class="upload-demo"
         drag
         action="https://jsonplaceholder.typicode.com/posts/"
+        :on-success="handleSuccess"
+        :on-error="handleError"
         multiple>
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -99,6 +105,14 @@
         alert("已清空数据")
   
         this.$refs[formName].resetFields()
+      },
+      handleSuccess(response, file, fileList) {
+        // 当上传成功时触发的函数
+        alert("成功上传并解析")
+      },
+      handleError(err, file, fileList) {
+        // 当上传失败时触发的函数
+        alert("成功上传并解析")
       },
     },
     mounted () {

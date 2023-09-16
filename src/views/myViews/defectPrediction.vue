@@ -1,7 +1,34 @@
 <template>
   <div>
 
+    <div style="margin-bottom: 20px">
+      <el-button type="primary" @click="start()">开始预测</el-button>
+      <el-button @click="toggleSelection()">取消选择</el-button>
+      <el-button @click="submitSelection()">提交选中文件</el-button>
+      <el-button @click="end()">结束预测</el-button>
+      <el-button @click="showTensorboard()">查看模型参数</el-button>
+      <!-- <el-button @click="showExper()">展示实验图表</el-button> -->
+    </div>
+
+    <!--树-->
+    <el-tree
+      :data="treeData"
+      show-checkbox
+      :default-expand-all="true"
+      :props="{label:'nodeName'}">
+
+        <!--颜色-->
+        <template v-slot="{ node, data }">
+          <span :style="{ color: getTreeNodeColor(data) }">
+            {{ data.nodeName }}
+          </span>
+        </template>
+
+    </el-tree>
+
     <h3>所有文件</h3>
+
+    <!--表格-->
     <template>
       <el-table
         v-loading="loading"
@@ -10,8 +37,7 @@
         tooltip-effect="dark"
         style="width: 100%"
         @selection-change="handleSelectionChange"
-        @row-click="showUq"
-        >
+        @row-click="showUq">
 
         <el-table-column
           type="selection"
@@ -61,18 +87,12 @@
       </el-table>
     </template>
 
-    <div v-show="showItem">
-      <h3>统计图表</h3>
-      <div class="echart" id="mychart1" :style="myChartStyle"></div>
-      <div class="echart" id="mychart2" :style="myChartStyle"></div>
-    </div>
-
-    <div style="margin-top: 20px">
-      <el-button @click="toggleSelection()">取消选择</el-button>
-      <el-button @click="submitSelection()">提交选中文件</el-button>
-      <el-button @click="end()">结束预测</el-button>
-      <el-button type="primary" @click="start()">开始预测</el-button>
-      <el-button v-show="showItem" @click="showTensorboard()">查看模型参数</el-button>
+    <!-- 图表 -->
+    <div>
+      <div v-show="showChart1" class="echart" id="mychart1" :style="myChartStyle"></div>
+      <div v-show="showChart2" class="echart" id="mychart2" :style="myChartStyle"></div>
+      <div v-show="showChart34" class="echart" id="mychart3" :style="myChartStyle"></div>
+      <div v-show="showChart34" class="echart" id="mychart4" :style="myChartStyle"></div>
     </div>
 
   </div>
@@ -85,25 +105,21 @@ axios.defaults.timeout = 1000000; //设置超时时间
 export default {
   name: "dataTables",
   data () {
-
     return {
+
+      //树
+      treeData: [],
 
       //表格相关
       tableData4: [{name: "..."}],
-      multipleSelection: [],
+      multipleSelection: [], //勾选
       loading: false, //关闭加载图标
       
       //图表相关
-      showItem: false, //是否展示图表
+      showChart1: false,
+      showChart2: false,
+      showChart34: false,
       myChartStyle: { float: "left", width: "100%", height: "400px" }, //图表样式
-
-      //直方图
-      xData: ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99"], //横坐标
-      yData: [1, 1, 1], //数据
-
-      //饼图
-      dpCount:0,
-      unDpCount:0,
     }
   },
   mounted() {
@@ -115,12 +131,15 @@ export default {
       this.tableData4 = response.data
       this.yData = response.data[0]["uqs"] //样本的uq数据
       console.log(this.yData)
+
+      //加载图表
+      this.initEchart2();
+      this.initEchart34();
     })
     .catch(function(error){
       console.log("请求回调失败!!!");
       console.log(error);
     })
-
   },
   methods: {
 
@@ -129,6 +148,7 @@ export default {
       this.$refs.multipleTable1.clearSelection()
     },
 
+    //提交选中文件按钮
     submitSelection(){
       console.log("请求回调中...");
       axios.post(
@@ -143,6 +163,7 @@ export default {
       })
     },
 
+    //结束预测按钮
     end () {
       console.log("请求回调中...");
       axios.get("http://localhost:5000/end").then(response => {
@@ -167,17 +188,73 @@ export default {
 
         this.tableData4 = response.data //载入表格数据
 
-        //图表相关
-        this.dpCount=0
-        for(var item of this.tableData4)
-          if(item["defectPrediction"]>0) this.dpCount++
-        this.unDpCount=response.data.length-this.dpCount
-        this.initEcharts(); //加载图表
-        this.showItem = true //设置展示图表
+        this.createTree() //造树
+
+        //加载图表
+        this.initEchart2(); 
+        this.initEchart34();
+
       }).catch(function(error){
         console.log("请求回调失败!!!");
         console.log(error);
       })
+    },
+
+    //造树
+    createTree(){
+      //用tableData4造树
+      this.treeData = [{
+          nodeName: '',
+      }]
+
+      for (const file of this.tableData4) {
+        const path = file.path.split(".")
+        if(this.treeData[0].nodeName == ''){
+          this.treeData[0].nodeName = path[0]
+        }
+
+        var cur = 0  //path的下标
+        var curNode = this.treeData[0]
+
+        //从左往右走一遍path
+        while(cur+1 < path.length){
+          cur++ //待查找的包名：path[cur]
+
+          if(curNode["children"] == undefined){//没有子就建一个
+            curNode.children = []
+          }
+
+          //遍历children
+          find = false
+          for(const child of curNode.children){
+            if(child.nodeName == path[cur]){//找到了匹配的子
+              find = true
+              curNode = child; //记录新curNode
+              break
+            }
+          }
+          if(!find){
+            var newNode = {nodeName:path[cur]}
+            curNode.children.push(newNode)
+            curNode = newNode
+          }
+
+          if(cur == path.length-1){//若遍历到了path的最后一个包名
+            curNode.name = file.name
+            curNode.source = file.source
+            curNode.super = file.super
+            curNode.uq = file.uq
+            curNode.id = file.id
+            curNode.label = file.label
+            curNode.color = file.defectPrediction==0 ? "green" : "red"
+          }
+        }
+      }
+      // console.log(this.treeData)
+    },
+    getTreeNodeColor(nodeData) {
+      // 返回节点的颜色属性，或默认颜色
+      return nodeData.color || "black";
     },
 
     //处理改变
@@ -185,27 +262,51 @@ export default {
       this.multipleSelection = val
     },
 
-    //加载图表
-    initEcharts() {
+    //加载图表数据
+    initEchart1(val) {
+      this.showChart1 = true
 
       //取元素
       const myChart1 = echarts.init(document.getElementById("mychart1"));
-      const myChart2 = echarts.init(document.getElementById("mychart2"));
 
-      //设置option
+      //设置option，包括数据
       const option1 = {
+        title: {
+          text: '单个文件uq采样直方图'
+        },
         xAxis: {
-          data: this.xData //横坐标数据
+          data: ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99"], //横坐标
         },
         yAxis: {},
         series: [
           {
             type: "bar", //形状为柱状图
-            data: this.yData //纵坐标数据
+            data: val //纵坐标数据
           }
         ],
       };
+      myChart1.setOption(option1);
+
+      //随着屏幕大小调节图表
+      window.addEventListener("resize", () => {
+        myChart1.resize();
+      });
+    },
+    initEchart2(){//饼图
+      if(this.tableData4.length == 0) return
+      this.showChart2 = true
+
+      //计算
+      var dpCount = 0
+      for(var item of this.tableData4)
+        if(item["defectPrediction"]>0) dpCount++
+      var unDpCount = this.tableData4.length - dpCount
+
+      const myChart2 = echarts.init(document.getElementById("mychart2"));
       const option2 = {
+        title: {
+          text: '缺陷比率'
+        },
         tooltip: {
           trigger: 'item'
         },
@@ -234,26 +335,150 @@ export default {
               show: false
             },
             data: [
-              { value: this.dpCount, name: '有缺陷文件' },
-              { value: this.unDpCount, name: '无缺陷文件' },
+              { value: dpCount, name: '有缺陷文件' },
+              { value: unDpCount, name: '无缺陷文件' },
             ]
           }
         ]
       };
-      myChart1.setOption(option1);
       myChart2.setOption(option2);
 
       //随着屏幕大小调节图表
       window.addEventListener("resize", () => {
-        myChart1.resize();
         myChart2.resize();
       });
-      
+    },
+    initEchart34(){
+      if(this.tableData4.length == 0) return
+      this.showChart34 = true
+
+      //计算直方图
+      var yFault = new Array(25).fill(0) //[0-24]
+      var yTrue = new Array(25).fill(0) //[0-24]
+      for(var item of this.tableData4) {
+        var index = parseInt(item["uq"] * 100) //向下取整
+        if(index>24) index=24
+
+        if(item["defectPrediction"]==item["label"])  //预测正确
+          yTrue[index] += 1
+        else  //预测错误
+          yFault[index] += 1
+      }
+
+      //计算准确率
+      var yTrueRate = new Array(25).fill(0) //[0-24]
+      for(var i=0 ; i<26 ; i++){
+        var sum = yFault[i] + yTrue[i]
+        yTrueRate[i] = sum==0 ? 0 : yTrue[i]/sum
+      }
+
+      const myChart3 = echarts.init(document.getElementById("mychart3"));
+      const myChart4 = echarts.init(document.getElementById("mychart4"));
+      const option3 = {
+        title: {
+          text: '方差分布直方图'
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+        legend: {},
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: ["0","0.01","0.02","0.03","0.04","0.05","0.06","0.07","0.08","0.09","0.1","0.11","0.12","0.13","0.14","0.15","0.16","0.17","0.18","0.19","0.20","0.21","0.22","0.23","0.24"]
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            name: 'fault',
+            type: 'bar',
+            stack: 'Ad',
+            emphasis: {
+              focus: 'series'
+            },
+            data: yFault
+          },
+          {
+            name: 'true',
+            type: 'bar',
+            stack: 'Ad',
+            emphasis: {
+              focus: 'series'
+            },
+            data: yTrue
+          },
+        ]
+      };
+      const option4 = {
+        title: {
+          text: '预测准确率'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['forrest'] //可扩充
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ["0","0.01","0.02","0.03","0.04","0.05","0.06","0.07","0.08","0.09","0.1","0.11","0.12","0.13","0.14","0.15","0.16","0.17","0.18","0.19","0.20","0.21","0.22","0.23","0.24"]
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: 'forrest',
+            type: 'line',
+            stack: 'Total',
+            data: yTrueRate
+          }, //可扩充
+        ]
+      };
+      myChart3.setOption(option3);
+      myChart4.setOption(option4);
+
+      //随着屏幕大小调节图表
+      window.addEventListener("resize", () => {
+        myChart3.resize();
+        myChart4.resize();
+      });
     },
 
     //展示该文件的uq直方图
     showUq(item){
-      console.log(item["id"])
+      this.loading = true //开启加载图标
 
       console.log("请求回调中...");
       axios.post(
@@ -263,9 +488,10 @@ export default {
         console.log("请求回调成功");
         console.log(response.data)
 
+        this.loading = false //关闭加载图标
+
         //加载图表
-        this.yData = response.data
-        this.initEcharts();
+        this.initEchart1(response.data);
       }).catch(function(error){
         console.log("请求回调失败!!!");
         console.log(error);

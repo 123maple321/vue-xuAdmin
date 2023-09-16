@@ -4,6 +4,11 @@
     <!-- <p>选择多行数据时使用 Checkbox。</p> -->
     <template>
 
+      <div style="margin-bottom: 20px">
+        <el-button @click="toggleSelection()">取消选择</el-button>
+        <el-button type="primary" @click="select()">申请公共项目</el-button>
+      </div>
+
       <!--表格1-->
       <el-table
         ref="multipleTable"
@@ -32,26 +37,25 @@
         </el-table-column>
 
         <el-table-column
+          prop="language"
+          label="语言"
+          width="120">
+        </el-table-column>
+
+        <el-table-column
           prop="fileNum"
           label="文件数"
-          width="120"
+          width="90"
+          align="right"
           :sortable="true"
           :sort-method="sortFileNum">
         </el-table-column>
 
         <el-table-column
-          prop="date"
-          label="上传日期"
-          width="120"
-          :sortable="true"
-          :sort-method="sortData">
-          <template slot-scope="scope">{{ scope.row.date }}</template>
-        </el-table-column>
-
-        <el-table-column
           prop="unbalanceRate"
           label="不平衡率"
-          width="120">
+          width="90"
+          align="right">
         </el-table-column>
 
         <el-table-column
@@ -73,17 +77,21 @@
         </el-table-column>
 
         <el-table-column
+          prop="date"
+          label="上传日期"
+          width="120"
+          :sortable="true"
+          :sort-method="sortData">
+          <template slot-scope="scope">{{ scope.row.date }}</template>
+        </el-table-column>
+
+        <el-table-column
           prop="description"
           label="项目描述"
           show-overflow-tooltip>
         </el-table-column>
 
       </el-table>
-
-      <div style="margin-top: 20px">
-        <el-button @click="toggleSelection()">取消选择</el-button>
-        <el-button type="primary" @click="select()">申请公共项目</el-button>
-      </div>
 
     </template>
   </div>

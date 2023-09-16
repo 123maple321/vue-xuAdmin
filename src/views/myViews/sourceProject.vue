@@ -1,8 +1,13 @@
 <template>
     <div>
       <h3>请选择源项目</h3>
-      <!-- <p>选择多行数据时使用 Checkbox。</p> -->
+      <span>请选择用于训练模型的训练项目，该模型将用于预测目标项目，所以请尽量选择与目标项目相似度高的训练项目。</span>
       <template>
+
+        <div style="margin-top: 20px; margin-bottom: 20px">
+          <el-button @click="toggleSelection()">取消选择</el-button>
+          <el-button type="primary" @click="select()">确定</el-button>
+        </div>
 
         <!--表格1-->
         <el-table
@@ -73,11 +78,6 @@
           </el-table-column>
 
         </el-table>
-
-        <div style="margin-top: 20px">
-          <el-button @click="toggleSelection()">取消选择</el-button>
-          <el-button type="primary" @click="select()">确定</el-button>
-        </div>
 
       </template>
     </div>
