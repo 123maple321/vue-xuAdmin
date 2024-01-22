@@ -7,10 +7,11 @@
       <!--表格1-->
       <el-table
         ref="multipleTable"
-        :data="tableData4" 
+        :data="tableData4"
         tooltip-effect="dark"
         style="width: 100%"
-        @selection-change="handleSelectionChange">
+        @selection-change="handleSelectionChange"
+        @row-click="chooseResult">
 
         <el-table-column
           type="selection"
@@ -19,8 +20,10 @@
 
         <el-table-column
           prop="name"
-          label="被测项目名"
-          width="120">
+          label="项目名"
+          width="120"
+          :sortable="true"
+          :sort-method="sortName">
         </el-table-column>
 
         <el-table-column
@@ -30,150 +33,135 @@
         </el-table-column>
 
         <el-table-column
+          prop="date"
+          label="日期"
+          width="120"
+          :sortable="true"
+          :sort-method="sortData">
+          <template slot-scope="scope">{{ scope.row.date }}</template>
+        </el-table-column>
+
+        <el-table-column
+          prop="language"
+          label="语言"
+          width="120">
+        </el-table-column>
+
+        <el-table-column
           prop="fileNum"
           label="文件数"
-          width="120">
+          width="90"
+          align="right"
+          :sortable="true"
+          :sort-method="sortFileNum">
         </el-table-column>
 
         <el-table-column
-          prop="defectRate"
+          prop="unbalanceRate"
           label="缺陷率"
-          width="120">
+          width="90"
+          align="right">
         </el-table-column>
 
         <el-table-column
-          label="日期"
-          width="120">
-          <template slot-scope="scope">{{ scope.row.date }}</template>
+          prop="public"
+          label="是否属于公共项目"
+          width="150">
+        </el-table-column>
+
+        <el-table-column
+          prop="label"
+          label="是否带有训练标签"
+          width="150">
+        </el-table-column>
+
+        <el-table-column
+          prop="manu"
+          label="是否带有手工特征"
+          width="150">
         </el-table-column>
 
         <el-table-column
           prop="description"
           label="项目描述"
-          width="120">
-        </el-table-column>
-
-        <el-table-column
-          prop="button"
-          label=""
           show-overflow-tooltip>
-          <el-button @click="viewDetails()">查看详情</el-button>
         </el-table-column>
 
       </el-table>
-
-      <div style="margin-top: 20px">
-        <el-button @click="toggleSelection()">取消选择</el-button>
-        <el-button type="primary" @click="exportResult()">导出报表</el-button>
-      </div>
 
     </template>
   </div>
 </template>
 
 <script>
+import axios from 'axios' //引入axios
 export default {
   name: "dataTables",
-  data () { //返回表内数据
-    // console.log("1111")
+  data () {
+      //加载表格
+      console.log("请求回调中...");
+      axios.get("http://localhost:5000/resultManagement").then(response => {
+        console.log("请求回调成功");
+        console.log(response.data)
+        
+        this.tableData4 = response.data
+      }).catch(function(error){
+        console.log("请求回调失败!!!");
+        console.log(error);
+      })
+
     return {
       tableData4: [
         {
-          project_result_id: 123456,
-          name: "camel",
-          version: "1.4",
-          fileNum: "402",
-          defectRate: "78",
-          date: "2023-03-14",
-          description: "属于PROMISE"
-        }, 
-        {
-          project_result_id: 123457,
-          name: "camel",
-          version: "1.4",
-          fileNum: "67",
-          defectRate: "78",
-          date: "2023-03-14",
-          description: "属于PROMISE"
-        }, 
-        {
-          project_result_id: 123458,
-          name: "camel",
-          version: "1.4",
-          fileNum: "67",
-          defectRate: "78",
-          date: "2023-03-14",
-          description: "属于PROMISE"
-        }, 
-        {
-          project_result_id: 123459,
-          name: "camel",
-          version: "1.4",
-          fileNum: "67",
-          defectRate: "78",
-          date: "2023-03-14",
-          description: "属于PROMISE"
-        }, 
-        {
-          project_result_id: 123450,
-          name: "camel",
-          version: "1.4",
-          fileNum: "67",
-          defectRate: "78",
-          date: "2023-03-14",
-          description: "属于PROMISE"
-        }, 
-        {
-          project_result_id: 123451,
-          name: "camel",
-          version: "1.4",
-          fileNum: "67",
-          defectRate: "78",
-          date: "2023-03-14",
-          description: "属于PROMISE"
-        }, 
-        {
-          project_result_id: 123452,
-          name: "camel",
-          version: "1.4",
-          fileNum: "67",
-          defectRate: "78",
-          date: "2023-03-14",
-          description: "属于PROMISE"
-        }, 
-        {
-          project_result_id: 123453,
-          name: "camel",
-          version: "1.4",
-          fileNum: "67",
-          defectRate: "78",
-          date: "2023-03-14",
-          description: "属于PROMISE"
-        }, 
+          name:"..."
+        }
       ],
       multipleSelection: []
     }
   },
   methods: {
-    toggleSelection () { //自动勾选或取消勾选
-      this.$refs.multipleTable.clearSelection()
-    },
-    exportResult (rows) {
-      //TODO
-
-      console.log(this.multipleSelection)
-      
-      alert("导出报表")
-    },
-    viewDetails () {
-      //TODO
-
-      alert("查看详情")
-    },
     handleSelectionChange (val) { //处理改变
       this.multipleSelection = val
-    }
-  }
+    },
+
+    //点击表格行触发：跳转到指定结果页
+    chooseResult(item){
+      axios.post(
+        "http://localhost:5000/chooseResult",
+        {"id":item["id"]},
+      ).then(response => {
+        console.log("请求回调成功");
+        console.log(response.data)
+
+        //跳转到详情页
+        window.location.href = "http://localhost:8081/#/resultDetail"
+
+      }).catch(function(error){
+        console.log("请求回调失败!!!");
+        console.log(error);
+      })
+    },
+
+    //排序方法
+    sortName(a, b) {
+			let _a = a.name;
+			let _b = b.name;
+			return _a - _b;
+		},
+    sortFileNum(a, b) {
+			let _a = a.fileNum;
+			let _b = b.fileNum;
+			return _a - _b;
+		},
+    sortDate(a, b) {
+			let _a = a.date;
+			let _b = b.date;
+			return _a - _b;
+		},
+  },
+  mounted () {
+    
+  },
 }
 </script>
 

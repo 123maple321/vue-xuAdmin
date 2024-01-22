@@ -5,8 +5,8 @@
       <el-button type="primary" @click="start()">开始预测</el-button>
       <el-button @click="toggleSelection()">取消选择</el-button>
       <el-button @click="submitSelection()">提交选中文件</el-button>
-      <el-button @click="end()">结束预测</el-button>
       <el-button @click="showTensorboard()">查看模型参数</el-button>
+      <el-button @click="end()">结束预测</el-button>
       <!-- <el-button @click="showExper()">展示实验图表</el-button> -->
     </div>
 
@@ -132,6 +132,8 @@ export default {
       this.yData = response.data[0]["uqs"] //样本的uq数据
       console.log(this.yData)
 
+      this.createTree() //造树
+
       //加载图表
       this.initEchart2();
       this.initEchart34();
@@ -169,9 +171,11 @@ export default {
       axios.get("http://localhost:5000/end").then(response => {
         console.log("请求回调成功");
         console.log(response)
+        alert("预测结果已成功保存至结果管理模块！")
       }).catch(function(error){
         console.log("请求回调失败!!!");
         console.log(error);
+        alert("预测结果保存失败！")
       })
     },
 
@@ -207,7 +211,7 @@ export default {
           nodeName: '',
       }]
 
-      for (const file of this.tableData4) {
+      for (const file of this.tableData4) {//遍历每一项
         const path = file.path.split(".")
         if(this.treeData[0].nodeName == ''){
           this.treeData[0].nodeName = path[0]
@@ -216,7 +220,7 @@ export default {
         var cur = 0  //path的下标
         var curNode = this.treeData[0]
 
-        //从左往右走一遍path
+        //从左往右走一遍这个path
         while(cur+1 < path.length){
           cur++ //待查找的包名：path[cur]
 
@@ -274,6 +278,11 @@ export default {
         title: {
           text: '单个文件uq采样直方图'
         },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
         xAxis: {
           data: ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99"], //横坐标
         },
@@ -305,7 +314,7 @@ export default {
       const myChart2 = echarts.init(document.getElementById("mychart2"));
       const option2 = {
         title: {
-          text: '缺陷比率'
+          text: '缺陷比例'
         },
         tooltip: {
           trigger: 'item'
@@ -324,13 +333,13 @@ export default {
               show: false,
               position: 'center'
             },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: 40,
-                fontWeight: 'bold'
-              }
-            },
+            // emphasis: {
+            //   label: {
+            //     show: true,
+            //     fontSize: 40,
+            //     fontWeight: 'bold'
+            //   }
+            // },
             labelLine: {
               show: false
             },
@@ -476,7 +485,7 @@ export default {
       });
     },
 
-    //展示该文件的uq直方图
+    //点击表格行触发：展示该文件的uq直方图
     showUq(item){
       this.loading = true //开启加载图标
 

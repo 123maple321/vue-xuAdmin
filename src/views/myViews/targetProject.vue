@@ -1,10 +1,10 @@
 <template>
   <div>
     <h3>请选择目标项目</h3>
-    <!-- <p>选择多行数据时使用 Checkbox。</p> -->
+    <span>请选择待预测的项目。</span>
     <template>
 
-      <div style="margin-bottom: 20px">
+      <div style="margin-top: 20px; margin-bottom: 20px">
         <el-button @click="toggleSelection()">取消选择</el-button>
         <el-button type="primary" @click="select()">确定</el-button>
       </div>
@@ -49,7 +49,7 @@
 
         <el-table-column
           prop="unbalanceRate"
-          label="不平衡率"
+          label="缺陷率"
           width="120">
         </el-table-column>
 

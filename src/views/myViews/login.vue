@@ -33,8 +33,8 @@
 
               <p class="smalltxt">
                 <router-link class="a" to="#">忘记密码</router-link>
-                <router-link class="a" to="#">忘记会员名</router-link>
-                <router-link class="a" to="#">免费注册</router-link>
+                <router-link class="a" to="#">忘记用户名</router-link>
+                <router-link class="a" to="#">注册</router-link>
               </p>
 
             </el-form>

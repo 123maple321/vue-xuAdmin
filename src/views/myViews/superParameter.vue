@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <h3>超参数设置</h3>
     <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="200px" class="demo-dynamic">
       
       <el-form-item
@@ -7,7 +8,7 @@
         label="人工/手工特征"
         :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
           <el-input placeholder="请输入数据" v-model="dynamicValidateForm.feasure"></el-input>
-          <span>说明：人工特征指。。。手工特征指。。。</span>
+          <span>说明：是否使用静态特征，是否使用手工特征</span>
       </el-form-item>
       
       <el-form-item
@@ -15,7 +16,7 @@
         label="BNN隐藏层神经元数"
         :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
           <el-input placeholder="请输入数据" v-model="dynamicValidateForm.hidden_layer"></el-input>
-          <span>说明：设置BNN中唯一隐藏层的神经元个数</span>
+          <span>说明：设置贝叶斯神经网络中隐藏层的神经元个数</span>
       </el-form-item>
       
       <el-form-item
@@ -23,7 +24,7 @@
         label="学习率"
         :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
           <el-input placeholder="请输入数据" v-model="dynamicValidateForm.learning_rate"></el-input>
-          <span>说明：</span>
+          <span>说明：设置贝叶斯神经网络的学习率</span>
       </el-form-item>
       
       <el-form-item
@@ -31,7 +32,7 @@
         label="batch_size"
         :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
           <el-input placeholder="请输入数据" v-model="dynamicValidateForm.batch_size"></el-input>
-          <span>说明：</span>
+          <span>说明：每个批次的数据量大小</span>
       </el-form-item>
       
       <el-form-item
@@ -39,7 +40,7 @@
         label="epoch"
         :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
           <el-input placeholder="请输入数据" v-model="dynamicValidateForm.epoch"></el-input>
-          <span>说明：</span>
+          <span>说明：所有批次的训练迭代次数</span>
       </el-form-item>
       
       <el-form-item
@@ -47,7 +48,7 @@
         label="sigma_1"
         :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
           <el-input placeholder="请输入数据" v-model="dynamicValidateForm.sigma_1"></el-input>
-          <span>说明：</span>
+          <span>说明：先验分布参数1</span>
       </el-form-item>
       
       <el-form-item
@@ -55,7 +56,7 @@
         label="sigma_2"
         :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
           <el-input placeholder="请输入数据" v-model="dynamicValidateForm.sigma_2"></el-input>
-          <span>说明：</span>
+          <span>说明：先验分布参数2</span>
       </el-form-item>
       
       <el-form-item
@@ -63,7 +64,7 @@
         label="是否使用dropout"
         :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
           <el-input placeholder="请输入数据" v-model="dynamicValidateForm.dropout"></el-input>
-          <span>说明：</span>
+          <span>说明：贝叶斯神经网络是否使用dropout</span>
       </el-form-item>
       
       <el-form-item
@@ -71,7 +72,7 @@
         label="是否使用nnfilter"
         :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
           <el-input placeholder="请输入数据" v-model="dynamicValidateForm.nnfilter"></el-input>
-          <span>说明：</span>
+          <span>说明：是否使用nnfilter处理样本</span>
       </el-form-item>
       
       <el-form-item
@@ -79,7 +80,7 @@
         label="是否使用tca"
         :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
           <el-input placeholder="请输入数据" v-model="dynamicValidateForm.tca"></el-input>
-          <span>说明：</span>
+          <span>说明：是否使用tca技术处理语义特征</span>
       </el-form-item>
 
       <!--按钮-->
@@ -155,7 +156,12 @@ export default {
 </script>
 
 <style scoped>
-
+h3{
+  margin: 25px 0 20px;
+  font-weight: 400;
+  color: #1f2f3d;
+  font-size: 22px;
+}
 .el-input {
   margin-right: 10px;
   width: 270px;

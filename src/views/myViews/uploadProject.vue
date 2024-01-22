@@ -1,35 +1,43 @@
 <template>
     <div class="wrap">
 
-        <!-- 上传 -->
-        <h3>上传项目文件</h3>
-        <el-upload
-        class="upload-demo"
-        drag
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :on-success="handleSuccess"
-        :on-error="handleError"
-        multiple>
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            <div class="el-upload__tip" slot="tip">只能上传压缩包文件，且不超过100Gb</div>
-        </el-upload>
-        
-        <!-- 上传 -->
-        <h3>上传项目标签及手工特征（可选）</h3>
-        <el-upload
-        class="upload-demo"
-        drag
-        action="https://jsonplaceholder.typicode.com/posts/"
-        :on-success="handleSuccess"
-        :on-error="handleError"
-        multiple>
-            <i class="el-icon-upload"></i>
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            <div class="el-upload__tip" slot="tip">只能上传压缩包文件，且不超过10Gb</div>
-        </el-upload>
+        <div class="wrap" style="display: flex;">
 
-        <!-- 表格 -->
+          <!-- 上传项目文件 -->
+          <div class="wrap" style="margin-right: 80px;"> <!-- 设置右边距 -->
+            <h3>上传项目文件</h3>
+            <el-upload
+            class="upload-demo"
+            drag
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-success="handleSuccess"
+            :on-error="handleError"
+            multiple>
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">只能上传压缩包文件，且不超过100Gb</div>
+            </el-upload>
+          </div>
+
+          <!-- 上传项目标签及手工特征（可选） -->
+          <div class="wrap">
+            <h3>上传项目标签及手工特征（可选）</h3>
+            <el-upload
+            class="upload-demo"
+            drag
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-success="handleSuccess"
+            :on-error="handleError"
+            multiple>
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">只能上传压缩包文件，且不超过10Gb</div>
+            </el-upload>
+          </div>
+
+        </div>
+
+        <!-- 项目信息 -->
         <h3>项目信息</h3>
         <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
         
@@ -63,7 +71,7 @@
             
             <el-form-item
             prop="unbalanceRate"
-            label="不平衡率"
+            label="缺陷率"
             :rules="{required: true, message: '此项不能为空', trigger: 'blur'}">
             <el-input placeholder="等待解析" v-model="dynamicValidateForm.e"></el-input>
             </el-form-item>
@@ -77,7 +85,7 @@
   
       </el-form>
     </div>
-  </template>
+</template>
   
 <script>
   import axios from 'axios' //引入axios

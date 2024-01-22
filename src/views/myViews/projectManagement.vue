@@ -53,7 +53,7 @@
 
         <el-table-column
           prop="unbalanceRate"
-          label="不平衡率"
+          label="缺陷率"
           width="90"
           align="right">
         </el-table-column>
