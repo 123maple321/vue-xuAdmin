@@ -1,6 +1,22 @@
 <template>
   <div>
 
+    <div style="display: flex; justify-content: space-between; margin-top: 20px; margin-bottom: 20px;">
+      <div style="display: flex;">
+        <el-button type="primary">开始预测</el-button>
+        <el-button>取消选择</el-button>
+        <el-button>提交选中文件</el-button>
+        <el-button>查看模型参数</el-button>
+        <el-button class="red">结束预测</el-button>
+        <!-- <el-button>展示实验图表</el-button> -->
+      </div>
+      <div style="display: flex; align-items: center;">
+        <el-input style="width: 200px; margin-left: 10px; margin-right: 10px;" placeholder="请输入"></el-input>
+        <el-button type="primary" style="margin-left: 10px;">搜索</el-button>
+        <el-button>重置</el-button>
+      </div>
+    </div>
+
     <!--树-->
     <el-tree
       :data="treeData"
@@ -79,9 +95,9 @@
     </template>
 
     <!-- 图表 -->
-    <div>
-      <div v-show="showChart1" class="echart" id="mychart1" :style="myChartStyle"></div>
+    <div style="margin-top: 30px;">
       <div v-show="showChart2" class="echart" id="mychart2" :style="myChartStyle"></div>
+      <div v-show="showChart1" class="echart" id="mychart1" :style="myChartStyle"></div>
       <div v-show="showChart34" class="echart" id="mychart3" :style="myChartStyle"></div>
       <div v-show="showChart34" class="echart" id="mychart4" :style="myChartStyle"></div>
     </div>
@@ -267,7 +283,7 @@ export default {
       //设置option，包括数据
       const option1 = {
         title: {
-          text: '单个文件uq采样直方图'
+          text: '模型输出统计直方图'
         },
         toolbox: {
           feature: {
@@ -549,5 +565,9 @@ p{
   font-size: 14px;
   color: #5e6d82;
   line-height: 1.5em;
+}
+.red{
+  color: #ffffff;
+  background-color: #f85f5f;
 }
 </style>

@@ -31,6 +31,7 @@ const pagePermissions = () => import("@/views/permissions/pagePermissions")
 const btnPermissions = () => import("@/views/permissions/btnPermissions")
 
 //我的
+const PersonnelManagement = () => import("@/views/myViews/personnelManagement")
 const ProjectManagement = () => import("@/views/myViews/projectManagement")
 const UploadProject = () => import("@/views/myViews/uploadProject")
 const SourceProject = () => import("@/views/myViews/sourceProject")
@@ -93,23 +94,40 @@ let defaultRouter = [
 //业务路由
 let addRouter = [
 
+  //组织管理
+  {
+    path: "/organizationManagement",
+    iconCls: "fa fa-universal-access fa-2x",
+    name: routeName.organizationManagement,
+    component: Layout,
+    children: [
+      {
+        path: "/personnelManagement",
+        iconCls: "fa fa-hand-stop-o",
+        name: routeName.personnelManagement,
+        component: PersonnelManagement,
+        children: []
+      },
+    ]
+  },
+
   //项目管理
   {
     path: "/projectManagement",
-    iconCls: "el-icon-tickets",
+    iconCls: "fa fa-file-code-o fa-2x",
     name: routeName.projectManagement,
     component: Layout,
     children: [
       {
         path: "/projectManagement",
-        iconCls: "fa fa-hand-stop-o",
-        name: routeName.projectManagement,
+        iconCls: "fa fa-file-code-o fa-2x",
+        name: routeName.projectList,
         component: ProjectManagement,
         children: []
       },
       {
         path: "/uploadProject",
-        iconCls: "fa fa-hand-stop-o",
+        iconCls: "fa fa-file-code-o fa-2x",
         name: routeName.uploadProject,
         component: UploadProject,
         children: []
@@ -117,37 +135,37 @@ let addRouter = [
     ]
   },
 
-  //缺陷预测管理
+  //缺陷预测
   {
     path: "/defectPredictionManagement",
-    iconCls: "el-icon-tickets",
+    iconCls: "fa el-icon-menu fa-2x",
     name: routeName.defectPredictionManagement,
     component: Layout,
     children: [
       {
-        path: "/sourceProject",
-        iconCls: "fa fa-hand-stop-o",
-        name: routeName.sourceProject,
-        component: SourceProject,
-        children: []
-      },
-      {
         path: "/targetProject",
-        iconCls: "fa fa-hand-stop-o",
+        iconCls: "fa fa-file-code-o fa-2x",
         name: routeName.targetProject,
         component: TargetProject,
         children: []
       },
       {
+        path: "/sourceProject",
+        iconCls: "fa fa-file-code-o fa-2x",
+        name: routeName.sourceProject,
+        component: SourceProject,
+        children: []
+      },
+      {
         path: "/superParameter",
-        iconCls: "fa fa-hand-stop-o",
+        iconCls: "el-icon-tickets",
         name: routeName.superParameter,
         component: SuperParameter,
         children: []
       },
       {
         path: "/defectPrediction",
-        iconCls: "fa fa-hand-stop-o",
+        iconCls: "fa el-icon-menu fa-2x",
         name: routeName.defectPrediction,
         component: DefectPrediction,
         children: []
@@ -164,14 +182,14 @@ let addRouter = [
     children: [
       {
         path: "/resultManagement",
-        iconCls: "fa fa-hand-stop-o",
+        iconCls: "el-icon-tickets",
         name: routeName.resultManagement,
         component: ResultManagement,
         children: []
       },
       {
         path: "/resultDetail",
-        iconCls: "fa fa-hand-stop-o",
+        iconCls: "el-icon-tickets",
         name: routeName.resultDetail,
         component: ResultDetail,
         children: []

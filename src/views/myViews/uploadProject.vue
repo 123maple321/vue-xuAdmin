@@ -21,7 +21,7 @@
 
           <!-- 上传项目标签及手工特征（可选） -->
           <div class="wrap">
-            <h3>上传项目标签及手工特征（可选）</h3>
+            <h3>上传项目标签（可选）</h3>
             <el-upload
             class="upload-demo"
             drag

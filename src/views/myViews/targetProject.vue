@@ -3,10 +3,17 @@
     <h3>请选择目标项目</h3>
     <span>请选择待预测的项目。</span>
     <template>
-
-      <div style="margin-top: 20px; margin-bottom: 20px">
-        <el-button @click="toggleSelection()">取消选择</el-button>
-        <el-button type="primary" @click="select()">确定</el-button>
+      
+      <div style="display: flex; justify-content: space-between; margin-top: 20px; margin-bottom: 20px;">
+        <div style="display: flex;">
+          <el-button @click="toggleSelection()">取消选择</el-button>
+          <el-button type="primary" @click="select()" style="margin-left: 10px;">确定</el-button>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <el-input style="width: 200px; margin-left: 10px; margin-right: 10px;" placeholder="请输入"></el-input>
+          <el-button type="primary" style="margin-left: 10px;">搜索</el-button>
+          <el-button>重置</el-button>
+        </div>
       </div>
 
       <!--表格1-->

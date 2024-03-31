@@ -10,11 +10,14 @@ import zhLocale from "element-ui/lib/locale/lang/zh-CN"
 const cn = {
   routeName: {
     home: "主页",
+    organizationManagement: "组织管理",
+    personnelManagement: "人员管理",
     projectManagement: "项目管理",
+    projectList: "项目列表",
     uploadProject: "上传项目",
-    defectPredictionManagement: "缺陷预测管理",
+    defectPredictionManagement: "缺陷预测",
     resultManagement: "结果管理",
-    sourceProject: "训练项目",
+    sourceProject: "源项目",
     targetProject: "待预测项目",
     superParameter: "超参数设置",
     defectPrediction: "缺陷预测",

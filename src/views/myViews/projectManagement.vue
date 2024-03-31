@@ -6,7 +6,13 @@
 
       <div style="margin-bottom: 20px">
         <el-button @click="toggleSelection()">取消选择</el-button>
-        <el-button type="primary" @click="select()">申请公共项目</el-button>
+        <el-button type="primary" @click="select()">申报公共项目</el-button>
+      </div>
+
+      <div style="margin-bottom: 20px">
+        <el-input style="width: 500px" placeholder="请输入"></el-input>
+        <el-button type="primary" style="margin-left: 10px">搜索</el-button>
+        <el-button>重置</el-button>
       </div>
 
       <!--表格1-->

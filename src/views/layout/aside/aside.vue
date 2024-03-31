@@ -18,7 +18,7 @@
                text-color="rgba(255,255,255,.7)"
                active-text-color="#ffffff"
                :router="$store.getters.uniquerouter"
-               :unique-opened="$store.getters.uniquerouter"
+              
                :collapse-transition="true">
 
         <template v-for="(item,index) in $store.getters.routers" v-if="!item.hidden">
@@ -43,6 +43,7 @@
 
       </el-menu>
 
+      
     </el-aside>
   </div>
 </template>

@@ -1,12 +1,20 @@
 <template>
     <div>
-      <h3>请选择源项目</h3>
+      <h3>源项目推荐列表</h3>
+      <span>该项目列表的默认排序为系统智能推荐。<br></span>
       <span>请选择用于训练模型的训练项目，该模型将用于预测目标项目，所以请尽量选择与目标项目相似度高的训练项目。</span>
       <template>
 
-        <div style="margin-top: 20px; margin-bottom: 20px">
-          <el-button @click="toggleSelection()">取消选择</el-button>
-          <el-button type="primary" @click="select()">确定</el-button>
+        <div style="display: flex; justify-content: space-between; margin-top: 20px; margin-bottom: 20px;">
+          <div style="display: flex;">
+            <el-button @click="toggleSelection()">取消选择</el-button>
+            <el-button type="primary" @click="select()" style="margin-left: 10px;">确定</el-button>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <el-input style="width: 200px; margin-left: 10px; margin-right: 10px;" placeholder="请输入"></el-input>
+            <el-button type="primary" style="margin-left: 10px;">搜索</el-button>
+            <el-button>重置</el-button>
+          </div>
         </div>
 
         <!--表格1-->
@@ -20,6 +28,14 @@
           <el-table-column
             type="selection"
             width="55">
+          </el-table-column>
+
+          <el-table-column
+            prop="recommend"
+            label="推荐指数"
+            width="120"
+            :sortable="true"
+            :sort-method="sortRecommend">
           </el-table-column>
 
           <el-table-column
@@ -90,12 +106,17 @@ export default {
   data () {
       //加载
       console.log("请求回调中...");
-      axios.get("http://localhost:5000/listProject").then(response => {
+      axios.get("http://localhost:5000/projectRecommend").then(response => {
         console.log("请求回调成功");
         console.log(response.data)
         
         //深拷贝！！！！！
         this.tableData4 = response.data
+
+        //给“推荐指数”赋值
+        this.tableData4.forEach(function(item) {
+          item["recommend"] = (Math.random() * 100).toFixed(2)
+        });
       }).catch(function(error){
         console.log("请求回调失败!!!");
         console.log(error);
@@ -129,7 +150,14 @@ export default {
     },
     handleSelectionChange (val) { //处理改变
       this.multipleSelection = val
-    }
+    },
+
+    //排序方法
+    sortRecommend(a, b) {
+			let _a = a.recommend;
+			let _b = b.recommend;
+			return _a - _b;
+		},
   }
 }
 </script>

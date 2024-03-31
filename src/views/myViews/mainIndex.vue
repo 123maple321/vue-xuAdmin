@@ -27,7 +27,7 @@
         <div class="card dbsx">
           <p class="title"><i class="fa fa-file-text-o"></i>用户状态</p>
           <ul>
-            <li><router-link to="#"><span>项目组总数</span><span class="num">6</span></router-link></li>
+            <li><router-link to="#"><span>项目人员总数</span><span class="num">11</span></router-link></li>
             <li><router-link to="#"><span>项目总数</span><span class="num">87</span></router-link></li>
           </ul>
           <ul>

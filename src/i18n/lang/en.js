@@ -13,7 +13,10 @@ import enLocale from "element-ui/lib/locale/lang/en"
 const en = {
   routeName: {
     home: "home",
+    organizationManagement: "organizationManagement",
+    personnelManagement: "personnelManagement",
     projectManagement: "projectManagement",
+    projectList: "projectList",
     uploadProject: "uploadProject",
     defectPredictionManagement: "defectPredictionManagement",
     resultManagement: "resultManagement",
