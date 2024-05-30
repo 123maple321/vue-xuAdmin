@@ -1,21 +1,20 @@
 <template>
   <div>
 
-    <div style="display: flex; justify-content: space-between; margin-top: 20px; margin-bottom: 20px;">
+    <!-- <div style="display: flex; justify-content: space-between; margin-top: 20px; margin-bottom: 20px;">
       <div style="display: flex;">
         <el-button type="primary">开始预测</el-button>
         <el-button>取消选择</el-button>
         <el-button>提交选中文件</el-button>
         <el-button>查看模型参数</el-button>
         <el-button class="red">结束预测</el-button>
-        <!-- <el-button>展示实验图表</el-button> -->
       </div>
       <div style="display: flex; align-items: center;">
         <el-input style="width: 200px; margin-left: 10px; margin-right: 10px;" placeholder="请输入"></el-input>
         <el-button type="primary" style="margin-left: 10px;">搜索</el-button>
         <el-button>重置</el-button>
       </div>
-    </div>
+    </div> -->
 
     <!--树-->
     <el-tree

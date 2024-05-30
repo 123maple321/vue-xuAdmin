@@ -1,10 +1,8 @@
 <template>
   <div>
 
-    <!-- 第一行 -->
-    <el-row :gutter="20">
+    <!-- <el-row :gutter="20">
 
-      <!-- 第一列 -->
       <el-col :span="8">
         <div class="card bbxx">
           <p class="title"><i class="fa fa-server"></i>版本信息</p>
@@ -15,14 +13,12 @@
             <p><span class="tit">源码链接</span>
                 <span class="gitbox">
                   <a target="_blank" href="https://github.com/123maple321/TCNN_BBB"><el-button type="primary" icon="el-icon-download" size="small">github</el-button></a>
-                  <!-- <a target="_blank" href="https://gitee.com/nirongxu/vue-xuAdmin.git"><el-button type="primary" icon="el-icon-download" size="small">码云</el-button></a> -->
                 </span>
             </p>
           </div>
         </div>
       </el-col>
 
-      <!-- 第二列 -->
       <el-col :span="8">
         <div class="card dbsx">
           <p class="title"><i class="fa fa-file-text-o"></i>用户状态</p>
@@ -37,7 +33,7 @@
         </div>
       </el-col>
 
-    </el-row>
+    </el-row> -->
 
     <!-- 第二行 -->
     <el-row>
@@ -45,12 +41,12 @@
         <div id="kjfs" class="card kjfs">
           <p class="title"><i class="fa fa-th-large fa-lg"></i>快捷方式</p>
           <ul>
-            <li><router-link to="/addArticle" class="kjfs kjfs-bluee"><span><i class="el-icon-tickets fa-2x"></i></span><span>项目管理</span></router-link></li>
-            <li><router-link to="/dragTabe" class="kjfs kjfs-pinkk"><span><i class="fa fa-hand-stop-o fa-2x"></i></span><span>源项目</span></router-link></li>
-            <li><router-link to="/pagePermissions" class="kjfs kjfs-yelloww"><span><i class="fa fa-universal-access fa-2x"></i></span><span>目标项目</span></router-link></li>
-            <li><router-link to="/upload" class="kjfs kjfs-grennn"><span><i class="fa fa-cloud-upload fa-2x"></i></span><span>超参数设置</span></router-link></li>
-            <li><router-link to="/navClassifies" class="kjfs kjfs-purplee"><span><i class="fa el-icon-menu fa-2x"></i></span><span>缺陷预测</span></router-link></li>
-            <li><router-link to="/markdown" class="kjfs kjfs-lightBluee"><span><i class="fa fa-file-code-o fa-2x"></i></span><span>结果管理</span></router-link></li>
+            <li><router-link to="/projectManagement" class="kjfs kjfs-bluee"><span><i class="el-icon-tickets fa-2x"></i></span><span>项目管理</span></router-link></li>
+            <li><router-link to="/targetProject" class="kjfs kjfs-yelloww"><span><i class="fa fa-universal-access fa-2x"></i></span><span>待预测项目</span></router-link></li>
+            <li><router-link to="/sourceProject" class="kjfs kjfs-pinkk"><span><i class="fa fa-hand-stop-o fa-2x"></i></span><span>源项目</span></router-link></li>
+            <li><router-link to="/superParameter" class="kjfs kjfs-grennn"><span><i class="fa fa-cloud-upload fa-2x"></i></span><span>超参数设置</span></router-link></li>
+            <li><router-link to="/defectPrediction" class="kjfs kjfs-purplee"><span><i class="fa el-icon-menu fa-2x"></i></span><span>缺陷预测</span></router-link></li>
+            <li><router-link to="/resultManagement" class="kjfs kjfs-lightBluee"><span><i class="fa fa-file-code-o fa-2x"></i></span><span>结果管理</span></router-link></li>
           </ul>
         </div>
       </el-col>
