@@ -36,14 +36,4 @@ new Vue({
   template: "<App/>"
 })
 
-
-
-
-// //尝试axios
-// console.log("main.js 请求回调中...");
-// axios.get("http://localhost:8082/admin/listProject").then(function(response){
-//     console.log("请求回调成功");
-//     console.log(response);
-// }).catch(function(error){
-//     console.log("请求回调失败");
-// })
+// hfuujg
