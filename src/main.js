@@ -35,5 +35,3 @@ new Vue({
   components: {App},
   template: "<App/>"
 })
-
-// hfuujg
